@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="keywords" content="Bro IDS Snort Stenographer Enterprise Linux SELinux ELK Elasticserch Logstash Kibana MOCYBER BroEZ Critical Stack">
+    <meta name="description" content="Response Operations Collection Kit - ROCK is a durable Network Security Monitoring sensor built with scalability, security, and hunt-centric tactics in mind.">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>ROCK by MOCYBER - An NSM sensor for incident response</title>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73705120-1', 'auto');
+  ga('send', 'pageview');
+
+</script> 
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>ROCK NSM</h1>
+          <h2>(Response Operation Collection Kit)</h2>
+          <h2>MOCYBER&#39;s open source Network Security Monitoring platform. </h2>
+        </header>
+
+        <img src="images/single_architecture.png" />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/CyberAnalyticDevTeam/SimpleRock/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/CyberAnalyticDevTeam/SimpleRock/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/CyberAnalyticDevTeam/SimpleRock" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h2>
+<a id="response-operation-collections-kit-reference-build" class="anchor" href="#response-operation-collections-kit-reference-build" aria-hidden="true"><span class="octicon octicon-link"></span></a>Response Operation Collections Kit</h2>
+
+<p>
+ROCK is a collections platform, in the spirit of Network Security Monitoring, designed by members of the Missouri National Guard's Cyber Team. It's primary focus is to provide a robust, scalable sensor platform for both enduring security monitoring and incident response missions. The platform consists of 3 core capabilities:
+
+<ul>
+<li>
+Passive data acquisition via PF_RING and AF_PACKET, feeding systems for metadata (Bro), signature detection (Snort), and packet capture (Stenographer).
+</li>
+<li>
+A messaging layer (Kafka and Logstash) that provides flexibility in scaling the platform to meet operational needs, as well as providing some degree of data reliability in transit.
+</li>
+<li>
+Reliable data storage and indexing (Elasticsearch) to support rapid retrieval and analysis (Kibana) of the data.
+</li>
+</ul>
+</p>
+
+<h2>Features</h2>
+<p>
+<ul>
+<li><strong>Packet Ring Buffer</strong> via <a href="http://www.ntop.org/products/packet-capture/pf_ring/" target="_blank">PF_RING</a>.</li>
+<li><strong>Full Packet Capture</strong> via <a href="https://github.com/google/stenographer" target="_blank">Google Stenographer</a>.</li>
+<li><strong>Protocol Analysis and Metadata</strong> via <a href="http://bro.org/" target="_blank">Bro</a>.</li>
+<li><strong>Signature Based Alerting</strong> via <a href="http://snort.org/" target="_blank">Snort</a>.</li>
+<li><strong>Message Queuing and Distribution</strong> via <a href="http://kafka.apache.org/" target="_blank">Apache Kafka</a>.</li>
+<li><strong>Message Transport</strong> via <a href="https://www.elastic.co/products/logstash" target="_blank">Logstash</a>.</li>
+<li><strong>Data Storage, Indexing, and Search</strong> via <a href="https://www.elastic.co/" target="_blank">Elasticsearch</a>.</li>
+<li><strong>Data UI and Visualization</strong> via <a href="https://www.elastic.co/products/kibana" target="_blank">Kibana</a>.</li>
+<li><strong>Security</strong> - The system is developed and tested to run with SELinux enabled and over a base OS with the DoD STIG template applied.</li>
+</ul>
+</p>
+
+<h2>
+<a id="thanks" class="anchor" href="#thanks" aria-hidden="true"><span class="octicon octicon-link"></span></a>THANKS</h2>
+
+<p>This architecture is made possible by the efforts of the Missouri National Guard Cyber Team, and especially Critical Stack and BroEZ for donating talent and resources to further development.</p>
+
+<h2>
+<a id="approach" class="anchor" href="#approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Approach</h2>
+
+<p>The Chef recipe that drives this build strives not to use external recipes and cookbooks where possible.  The reasoning behind this is to make the simplerock recipe a "one-stop" reference for a manual build.  This allows users to use the build process as a guide when doing larger scale production roll outs without having to decypher a labrynth of dependencies.</p>
+
+<p>Templated config files have comment sections added near key config items with useful info.  They don't all have it, but they get added as remembered.</p>
+        </section>
+<div style="text-align: center">
+  <img src="images/cyber2_small.png" height="200" width="200" />
+</div>
+        <footer>
+          SimpleRock is maintained by <a href="https://github.com/CyberAnalyticDevTeam">MOCYBER</a>, <a href="http://broez.com">BroEZ</a>, and <a href="http://criticalstack.com">Critical Stack</a>.  <br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
