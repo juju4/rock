@@ -1,8 +1,0 @@
-title: SimpleRock
-description: "A Chef recipe that builds an open source version of MOCYBER's ROCK (Response Operation Collection Kit) platform. "
-google_analytics: 
-show_downloads: true
-theme: jekyll-theme-tactile
-
-gems:
-  - jekyll-mentions
