@@ -1,0 +1,26 @@
+sudo: required
+env:
+  matrix:
+  - OS_TYPE=centos OS_VERSION=7
+services:
+- docker
+before_install:
+- sudo apt-get update
+- echo 'DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock -s devicemapper"'
+  | sudo tee /etc/default/docker > /dev/null
+- sudo service docker restart
+- sleep 5
+- sudo docker pull centos:centos${OS_VERSION}
+script:
+- tests/setup_tests.sh ${OS_VERSION}
+before_deploy:
+  - wget https://github.com/rocknsm/rock-createiso/archive/master.zip
+  - unzip master.zip
+deploy:
+  provider: releases
+  api_key:
+    secure: CJM1vGKd3aFGdMzKXPIBIFERiZj0LXvNJiJeJdqdZvb4V4r+WprcgyYUNi1vdzj2IBLWELrPuevKdwAC6PqFnMdF5wKHXtX1UgaFmLR42FG4foplkoZBYr/qLTfJ2cPiyK/3KT7QwFCAHZqOkAv3jC+inLMYqXuA9jw7CgE2rIpZDcn11WiN1hkguEmB17Z4mkj/Hql3CgDORYlaxq0b9CbByKwZfJNH1AU7Zn+jJwEFhS/dLRH6j6GkjFRhpItcpdjodi0xhZedJTxsklg+Edi5bZoFW+nFJvdhajHLnKgSIJ6IdvUescnI6KE+umQrz12dI4J20Q0++f4r10KOko4RqeLKQ4M9GNQ4jZ4QclHfigMGfwcivSx0cR0PZ95XX/caW6l2tvgI549omjR0rRxMAV1G4mdVtbUnpOxea49CSLsXCIeAKkYOPbqVDY2Ib9WyGxEr4UiNKiYke46O5wdK5OvOn8j2iWn3zc0FjACu/qeTPXjXvxGfoT0dFd2zTK2Wqb0i2xteEyTpNLpCn+9g7qkl0hg33rxpxEakbnVXfQOVNHV6z5PsSyMuOmK/kV5QwEK4EbxuSTXJVbsGq9WjIQasmKtG2FAbg3u9nnVCR2VzHvYYzB2ckSGjE22ZTgZJ4LcqeTcwOzwP4DKj80XoFABtYHP09U4QIJTvgO0=
+  file: rocknsm-$TRAVIS_TAG.iso
+  on:
+    repo: rocknsm/rock
+    tags: true
