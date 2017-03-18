@@ -2,8 +2,10 @@
 
 OS_VERSION=$1
 
+yum install -y iproute
+
 echo "--- SHOW INTERFACES ---"
-ip addr
+/usr/sbin/ip addr
 
 echo "-----------------------"
 
