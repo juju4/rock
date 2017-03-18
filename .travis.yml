@@ -12,6 +12,7 @@ before_install:
 - sleep 5
 - sudo docker pull centos:centos${OS_VERSION}
 - sudo ip tuntap add dev tap0 mode tap
+- sudo ip addr
 script:
 - tests/setup_tests.sh ${OS_VERSION}
 deploy:
