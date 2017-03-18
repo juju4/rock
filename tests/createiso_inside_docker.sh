@@ -13,10 +13,10 @@ cd /rock-createiso
 ./offline-snapshot.sh
 
 # Download the ISO
-wget ${ISO_URL}
+curl -LOJ "${ISO_URL}"
 
 # Run the build
-./master-iso.sh ${ISO_FNAME} ${BUILD_TARGET}
+./master-iso.sh "${ISO_FNAME}" "${BUILD_TARGET}"
 
 # Output the results
 echo "--- BEGIN BUILD LOG ---"

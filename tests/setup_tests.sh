@@ -8,7 +8,7 @@ el_version=$1
  # Run tests in Container
 
 if [ "$el_version" = "7" ]; then
-  if [ -z ${TRAVIS_TAG+x} ]; then
+  if [ -z ${TRAVIS_TAG} ]; then
     # This not is a tag build, skip it.
     echo "Running standard Ansible tests"
 
