@@ -2,7 +2,8 @@
 
 OS_VERSION=$1
 
-yum install -y iproute
+yum install -y iproute epel-release
+yum install -y ansible
 
 echo "--- SHOW INTERFACES ---"
 /usr/sbin/ip addr
