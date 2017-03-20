@@ -3,7 +3,7 @@
 OS_VERSION=$1
 
 yum install -y iproute epel-release
-yum install -y ansible @minimal openssh-server
+yum install -y ansible @minimal openssh-server sudo
 
 # Make hosts read/write
 umount /etc/hosts
