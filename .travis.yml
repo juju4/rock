@@ -11,15 +11,17 @@ before_install:
 - sudo service docker restart
 - sleep 5
 - sudo docker pull centos:centos${OS_VERSION}
-
 script:
 - tests/setup_tests.sh ${OS_VERSION}
 deploy:
   provider: releases
   api_key:
     secure: CJM1vGKd3aFGdMzKXPIBIFERiZj0LXvNJiJeJdqdZvb4V4r+WprcgyYUNi1vdzj2IBLWELrPuevKdwAC6PqFnMdF5wKHXtX1UgaFmLR42FG4foplkoZBYr/qLTfJ2cPiyK/3KT7QwFCAHZqOkAv3jC+inLMYqXuA9jw7CgE2rIpZDcn11WiN1hkguEmB17Z4mkj/Hql3CgDORYlaxq0b9CbByKwZfJNH1AU7Zn+jJwEFhS/dLRH6j6GkjFRhpItcpdjodi0xhZedJTxsklg+Edi5bZoFW+nFJvdhajHLnKgSIJ6IdvUescnI6KE+umQrz12dI4J20Q0++f4r10KOko4RqeLKQ4M9GNQ4jZ4QclHfigMGfwcivSx0cR0PZ95XX/caW6l2tvgI549omjR0rRxMAV1G4mdVtbUnpOxea49CSLsXCIeAKkYOPbqVDY2Ib9WyGxEr4UiNKiYke46O5wdK5OvOn8j2iWn3zc0FjACu/qeTPXjXvxGfoT0dFd2zTK2Wqb0i2xteEyTpNLpCn+9g7qkl0hg33rxpxEakbnVXfQOVNHV6z5PsSyMuOmK/kV5QwEK4EbxuSTXJVbsGq9WjIQasmKtG2FAbg3u9nnVCR2VzHvYYzB2ckSGjE22ZTgZJ4LcqeTcwOzwP4DKj80XoFABtYHP09U4QIJTvgO0=
-  file: /rocknsm-$TRAVIS_TAG-x86_64.iso
+  file: "/rocknsm-$TRAVIS_TAG-x86_64.iso"
   skip_cleanup: true
   on:
     repo: rocknsm/rock
     tags: true
+notifications:
+  slack:
+    secure: Q0T7dW0WqJcUe+kDQ2RSCefYPp0ncDUF+xRZ2WYRsXpwgkLtc1Ccc+NteAF43ZSBTEbDwhWGQMzGoHqFNFUyr87aQUCNz6+avnHZccQY3oGpDEBMRj5N3tbXUuCJkCvzzLT+8CztVvtWDG2U1gxPlI/b3qoIHA8FOyuM5/5v72iaeZWWiNDrH8yfYbyVurcvAr7YUX4+kGLcwwLsBQQQRw8MIdc3VpCc/dgoxPVInFzrFhEbFSS8pLyCYcUjnwVtqUrn8nrEzTxkTsihx+RLaWTvTpZ44jULg2cTwDFk6u6zEOCkreDnOx+RzvoHx5nW3KZWF62az5mkfX19oGmI9m935YK0A+Cxkcilblrb/5tPr4qpS9pz6i4gAz9ZorA31yI0Xg88tMiFEhuqE3puAyZE6t3jPfQyjTME6XfrCHhW94ANdDQ25jD7BoyHchwSxzyWUx2c0+irXViJz6V5RrL+RF5Kqi5BIk7FRyzmNEayRrYUVrF6X/oCI1uFI8WFmJGP0NMHNibnfs3YSHO/SxKzhtUS/DU8ARp/fCIRCH+GVI1+h8Sw3VMZ0k4d+pAqDbu+pFB3F0xtmOUh/Cd5Jy/OYgU80m83FZyJ5VNNlC/4j8QS3dXwzh4P+b6Y9v8kUGX6d7CG+vJmbRLxJhwqBAWi6auA3Q6XaXstVThF7ng=
