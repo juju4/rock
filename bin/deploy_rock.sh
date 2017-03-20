@@ -8,8 +8,8 @@ fi
 
 cd ${TOPLEVEL}
 ansible-playbook "${TOPLEVEL}/playbooks/deploy-rock.yml" ${VERBOSE_FLAGS}
-
-if [ $? -eq 0 ]; then
+retVal=$?
+if [ $retVal -eq 0 ]; then
   cat << 'EOF'
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │                                                                              │
@@ -43,4 +43,6 @@ if [ $? -eq 0 ]; then
 └──────────────────────────────────────────────────────────────────────────────┘
 EOF
 
+else
+  exit $retVal
 fi

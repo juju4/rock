@@ -5,6 +5,9 @@ OS_VERSION=$1
 yum install -y iproute epel-release
 yum install -y ansible @minimal openssh-server
 
+echo "========================= SHOW MOUNTS ==================================="
+mount
+
 echo "===================== CREATE TAP INTERFACE =============================="
 /usr/sbin/ip tuntap add dev tap0 mode tap
 
@@ -32,3 +35,5 @@ echo "======================== END DEFAULT VALUES ============================="
 
 # Run deploy
 DEBUG=1 /rock/bin/deploy_rock.sh
+
+echo "Return code: $?"
