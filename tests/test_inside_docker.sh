@@ -5,10 +5,13 @@ OS_VERSION=$1
 yum install -y iproute epel-release
 yum install -y ansible @minimal openssh-server
 
-echo "--- SHOW INTERFACES ---"
+echo "===================== CREATE TAP INTERFACE =============================="
+/usr/sbin/ip tuntap add dev tap0 mode tap
+
+echo "======================== SHOW INTERFACES ================================"
 /usr/sbin/ip addr
 
-echo "-----------------------"
+echo "========================================================================="
 
 # Add monitor interface to config
 mkdir -p /etc/rocknsm
@@ -21,11 +24,11 @@ EOF
 # Generate defaults
 /rock/bin/generate_defaults.sh
 
-echo "--- DUMP DEFAULT VALUES ---"
+echo "======================== DUMP DEFAULT VALUES ============================"
 cat /etc/rocknsm/config.yml
 
 
-echo "--- END DEFAULT VALUES ---"
+echo "======================== END DEFAULT VALUES ============================="
 
 # Run deploy
 DEBUG=1 /rock/bin/deploy_rock.sh
