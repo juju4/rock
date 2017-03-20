@@ -20,6 +20,8 @@ if [ "$el_version" = "7" ]; then
       systemctl --no-pager --all --full status;
       echo -ne \"------\nJournalD Logs:\n------\n\" ;
       journalctl --catalog --all --full --no-pager;"
+
+    echo "Docker exit code: $?"
     docker ps -a
     docker stop $DOCKER_CONTAINER_ID
     docker rm -v $DOCKER_CONTAINER_ID

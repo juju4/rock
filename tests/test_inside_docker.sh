@@ -5,6 +5,10 @@ OS_VERSION=$1
 yum install -y iproute epel-release
 yum install -y ansible @minimal openssh-server
 
+# Make hosts read/write
+umount /etc/hosts
+umount /etc/hostname
+
 echo "========================= SHOW MOUNTS ==================================="
 mount
 
@@ -35,5 +39,8 @@ echo "======================== END DEFAULT VALUES ============================="
 
 # Run deploy
 DEBUG=1 /rock/bin/deploy_rock.sh
+retVal=$?
 
-echo "Return code: $?"
+echo "======================== END ANSIBLE RUN ============================="
+
+echo "Return code: $retVal"

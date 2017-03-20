@@ -4,6 +4,7 @@ TOPLEVEL=$(dirname ${SCRIPT_PATH})
 VERBOSE_FLAGS=
 if [ "x${DEBUG}" != "x" ]; then
   VERBOSE_FLAGS="-vvv"
+  set -e
 fi
 
 cd ${TOPLEVEL}
