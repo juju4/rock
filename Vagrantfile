@@ -11,7 +11,8 @@ Vagrant.configure(2) do |config|
 
   # Configure overall network interfaces
   #config.vm.network "public_network", bridge: "en4: Apple USB Ethernet Adapter", auto_config: false
-  config.vm.network "public_network", bridge: "en0: Wi-Fi", auto_config: false
+  #config.vm.network "public_network", bridge: "en0: Wi-Fi", auto_config: false
+  config.vm.network "public_network", bridge: "eth0", auto_config: false
   #config.vm.network "private_network", auto_config: false
 
   config.vm.provider "virtualbox" do |vb|
@@ -23,7 +24,7 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-vms"]
 
     # Forward exposed service ports - these are directly accesible on vmware
-    #config.vm.network "forwarded_port", guest: 80, host: 8000
+    config.vm.network "forwarded_port", guest: 80, host: 8000
   end
 
   config.vm.provider "vmware_fusion" do |v|
@@ -40,8 +41,10 @@ Vagrant.configure(2) do |config|
 
     # Ensure vmware-tools are auto-updated when we update the kernel
     config.vm.provision "shell", inline: <<-SHELL
-      sed -i.bak 's/answer AUTO_KMODS_ENABLED_ANSWER no/answer AUTO_KMODS_ENABLED_ANSWER yes/g' /etc/vmware-tools/locations
-      sed -i 's/answer AUTO_KMODS_ENABLED no/answer AUTO_KMODS_ENABLED yes/g' /etc/vmware-tools/locations
+      if [ -f /etc/vmware-tools/locations ]; then
+        sed -i.bak 's/answer AUTO_KMODS_ENABLED_ANSWER no/answer AUTO_KMODS_ENABLED_ANSWER yes/g' /etc/vmware-tools/locations
+        sed -i 's/answer AUTO_KMODS_ENABLED no/answer AUTO_KMODS_ENABLED yes/g' /etc/vmware-tools/locations
+      fi
     SHELL
   end
 
@@ -59,6 +62,13 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sed -i 's/^SELINUX=.*/SELINUX=enforcing/' /etc/selinux/config
     setenforce 1
+  SHELL
+
+  # Deploy Rock NSM
+  config.vm.provision "shell", inline: <<-SHELL
+    cd /vagrant/bin
+    ./generate_defaults.sh
+    ./deploy_rock.sh
   SHELL
 
 end

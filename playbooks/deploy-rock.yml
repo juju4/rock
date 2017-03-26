@@ -896,21 +896,6 @@
       mode: 0644
     when: with_pulledpork
 
-  - name: Check stats of rules files
-    stat:
-      path: "{{ pulledpork_engine_basepath }}/rules/pulledpork.rules"
-    register: rules_file
-    when: with_pulledpork
-
-  - name: Create initial pulledpork rules-related files
-    file:
-      path: "{{ pulledpork_engine_basepath }}/rules/pulledpork.rules"
-      owner: root
-      group: root
-      mode: 0644
-      state: touch
-    when: not rules_file.stat.exists and with_pulledpork
-
   - name: Schedule pulledpork to run daily
     cron:
       name: "pulledpork update"
@@ -924,6 +909,17 @@
         {{ "/usr/bin/systemctl kill -s USR2 suricata;" if with_suricata else None }}
         {{ "/usr/bin/systemctl restart snortd;" if with_snort else None }}
     when: with_pulledpork
+
+  - name: Run pulledpork to create first rule set
+    shell: /opt/pulledpork/pulledpork.pl
+        -c /etc/pulledpork/pulledpork.conf
+        -l > /var/log/pulledpork.log 2>&1;
+        {{ "/usr/bin/systemctl kill -s USR2 suricata;" if with_suricata else None }}
+        {{ "/usr/bin/systemctl restart snortd;" if with_snort else None }}
+    args:
+      creates: "{{ pulledpork_engine_basepath }}/rules/pulledpork.rules"
+    when: with_pulledpork
+
 
     #######################################################
     ######################## FSF ##########################
